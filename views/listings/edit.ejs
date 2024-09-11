@@ -1,0 +1,40 @@
+<% layout("/layouts/boilerplate") %>
+<div class="row">
+    <div class="col-6 offset-3">
+    <h3>Edit Your Listing</h3>
+    <form method="POST" action="/listings/<%=listing._id%>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data"> 
+        <div class="mb-3">
+            <label for="" class="form-label">Title</label>
+            <input type="text" name="listing[title]" id="" value="<%=listing.title%>" class="form-control" required>
+            <div class="invalid-feedback">Enter valid property name</div>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Description</label>
+            <textarea name="listing[description]" id="" value="<%=listing.description%>" class="form-control" required><%=listing.description%></textarea>
+            <div class="invalid-feedback">Description is necessary</div>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Upload Image</label>
+            <input type="file" name="listing[image]" id="" class="form-control">
+        </div>
+        <div class="row">
+            <div class="mb-3 col-md-4">
+                <label for="" class="form-label">Price</label>
+                <input type="text" name="listing[price]" id="" value="<%=listing.price%>" class="form-control" required>
+                <div class="invalid-feedback">Enter a Valid Number</div>
+            </div>
+            <div class="mb-3 col-md-8">
+                <label for="" class="form-label">Country</label>
+                <input type="text" name="listing[country]" id="" value="<%=listing.country%>" class="form-control" required>
+                <div class="invalid-feedback">Entry Country Name</div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Location</label>
+            <input type="text" name="listing[location]" id="" value="<%=listing.location%>" class="form-control" required>
+            <div class="invalid-feedback">Enter Location</div> 
+        </div>
+        <button class="btn btn-dark edit-btn">Edit</button>
+    </form>
+    </div>
+</div>
