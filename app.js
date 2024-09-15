@@ -20,6 +20,7 @@ if(process.env.NODE_ENV != "production"){
 const listingRouter = require('./routes/listing.js');
 const reviewRouter = require('./routes/review.js');
 const userRouter = require('./routes/user.js');
+const homeRouter = require('./routes/home.js')
 const MongoStore = require('connect-mongo');
 const Listing = require('./models/listing.js');
 
@@ -31,7 +32,8 @@ app.use(express.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname,"/public")));
 
-const dbUrl = process.env.ATLASDB_URL;
+// const dbUrl = process.env.ATLASDB_URL;
+const dbUrl = "mongodb://127.0.0.1:27017/myapp";
 
 
 main().then((result) => {
@@ -69,13 +71,6 @@ const sessionOption = {
     }
 };
 
-//start
-app.get("/",async(req, res)=>{
-    const allListings = await Listing.find();
-    res.render("./listings/index.ejs",{allListings})
-    // res.render("./listings/index.ejs");
-});
-
 app.use(session(sessionOption));
 app.use(flash());
 
@@ -101,6 +96,9 @@ app.get("/demo",async (req, res)=>{
     let registeredUser = await User.register(fakeUser, "helloworld");
     res.send(registeredUser)
 })
+
+//for home
+app.use("/", homeRouter)
 
 //All listing routes
 app.use("/listings", listingRouter)
