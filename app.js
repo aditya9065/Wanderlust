@@ -21,6 +21,7 @@ const listingRouter = require('./routes/listing.js');
 const reviewRouter = require('./routes/review.js');
 const userRouter = require('./routes/user.js');
 const MongoStore = require('connect-mongo');
+const Listing = require('./models/listing.js');
 
 app.engine("ejs", ejsMate);
 app.set("view engine","ejs");
@@ -69,8 +70,10 @@ const sessionOption = {
 };
 
 //start
-app.get("/",(req, res)=>{
-    res.render("./listings/index.ejs");
+app.get("/",async(req, res)=>{
+    const allListings = await Listing.find();
+    res.render("./listings/index.ejs",{allListings})
+    // res.render("./listings/index.ejs");
 });
 
 app.use(session(sessionOption));
