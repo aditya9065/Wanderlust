@@ -70,7 +70,7 @@ const sessionOption = {
 
 //start
 app.get("/",(req, res)=>{
-    res.redirect("/listings");
+    res.send("/listings");
 });
 
 app.use(session(sessionOption));
